@@ -42,7 +42,7 @@ public class GameplayManager : MonoBehaviour
 
     void Start()
     {
-        StartDay();
+
     }
 
     #endregion
