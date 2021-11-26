@@ -123,37 +123,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!1 &102728922
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 102728923}
-  m_Layer: 0
-  m_Name: Management
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &102728923
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 102728922}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 3
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -299,7 +268,7 @@ Transform:
   m_Children:
   - {fileID: 1180995520}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &958000221
 GameObject:
@@ -332,6 +301,153 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &999592561
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 999592562}
+  - component: {fileID: 999592563}
+  m_Layer: 0
+  m_Name: AudioManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &999592562
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 999592561}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &999592563
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 999592561}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: da92f20caaac2534392763892707c457, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _debug:
+    log: 0
+    inspector: 0
+  _tracks:
+  - info:
+      trackName: Soundtracks
+      advanced: 1
+      volume: 0
+      mute: 0
+    source: {fileID: 0}
+    secondSource: {fileID: 0}
+    secondSourceActive: 0
+    audio:
+    - name: Break Down and Rye
+      intro: {fileID: 0}
+      clip: {fileID: 0}
+    - name: Toasty Weather
+      intro: {fileID: 0}
+      clip: {fileID: 0}
+    - name: Against the Grain
+      intro: {fileID: 0}
+      clip: {fileID: 0}
+    - name: Bake a Leg
+      intro: {fileID: 0}
+      clip: {fileID: 0}
+    - name: The Last Loaf
+      intro: {fileID: 0}
+      clip: {fileID: 0}
+    nextLoopTime: 0
+    currentAudio:
+      name: 
+      intro: {fileID: 0}
+      clip: {fileID: 0}
+  - info:
+      trackName: UI SFX
+      advanced: 0
+      volume: 0
+      mute: 0
+    source: {fileID: 0}
+    secondSource: {fileID: 0}
+    secondSourceActive: 0
+    audio: []
+    nextLoopTime: 0
+    currentAudio:
+      name: 
+      intro: {fileID: 0}
+      clip: {fileID: 0}
+  - info:
+      trackName: Door SFX
+      advanced: 0
+      volume: 0
+      mute: 0
+    source: {fileID: 0}
+    secondSource: {fileID: 0}
+    secondSourceActive: 0
+    audio: []
+    nextLoopTime: 0
+    currentAudio:
+      name: 
+      intro: {fileID: 0}
+      clip: {fileID: 0}
+  - info:
+      trackName: Cash SFX
+      advanced: 0
+      volume: 0
+      mute: 0
+    source: {fileID: 0}
+    secondSource: {fileID: 0}
+    secondSourceActive: 0
+    audio: []
+    nextLoopTime: 0
+    currentAudio:
+      name: 
+      intro: {fileID: 0}
+      clip: {fileID: 0}
+  - info:
+      trackName: Forge SFX
+      advanced: 0
+      volume: 0
+      mute: 0
+    source: {fileID: 0}
+    secondSource: {fileID: 0}
+    secondSourceActive: 0
+    audio: []
+    nextLoopTime: 0
+    currentAudio:
+      name: 
+      intro: {fileID: 0}
+      clip: {fileID: 0}
+  - info:
+      trackName: Table SFX
+      advanced: 0
+      volume: 0
+      mute: 0
+    source: {fileID: 0}
+    secondSource: {fileID: 0}
+    secondSourceActive: 0
+    audio: []
+    nextLoopTime: 0
+    currentAudio:
+      name: 
+      intro: {fileID: 0}
+      clip: {fileID: 0}
 --- !u!1 &1180995519
 GameObject:
   m_ObjectHideFlags: 0
@@ -474,6 +590,53 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1342383918
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1342383919}
+  - component: {fileID: 1342383920}
+  m_Layer: 0
+  m_Name: GameplayManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1342383919
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1342383918}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1342383920
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1342383918}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9cdc8b65e2b6db0478852a1a4b2e9e67, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  levelTimer: 0
+  levelLength: 0
+  dayNumber: 0
 --- !u!1 &1923896166
 GameObject:
   m_ObjectHideFlags: 0
@@ -503,5 +666,5 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
