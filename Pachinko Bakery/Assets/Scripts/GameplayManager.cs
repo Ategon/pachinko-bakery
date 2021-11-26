@@ -82,9 +82,50 @@ public class GameplayManager : MonoBehaviour
 
     }
 
+    public void MasterChange(float amount)
+    {
+        AudioManager.Instance.Volume(amount);
+    }
+
+    public void SoundtracksChange(float amount)
+    {
+        AudioManager.Instance.Volume(amount, "Soundtracks");
+    }
+
+    public void SFXChange(float amount)
+    {
+        AudioManager.Instance.Volume(amount, "UI");
+        AudioManager.Instance.Volume(amount, "Player");
+        AudioManager.Instance.Volume(amount, "Objects");
+    }
+
+    public void UIHover()
+    {
+        AudioManager.Instance.Play("Hover");
+    }
+
+    public void UIForward()
+    {
+        AudioManager.Instance.Play("Forward");
+    }
+
+    public void UIBackward()
+    {
+        AudioManager.Instance.Play("Backward");
+    }
+
+    public void UIChange()
+    {
+        AudioManager.Instance.Play("Load");
+    }
+
     public void Quit()
     {
-
+#if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false;
+#else
+        Application.Quit();
+#endif
     }
 
     #endregion
