@@ -22,6 +22,7 @@ public class GameplayManager : MonoBehaviour
 
     public static event System.Action OnDayStart;
     public static event System.Action OnDayEnd;
+    public static event System.Action OnMoneyGain;
 
     #region Properties
 
@@ -80,6 +81,7 @@ public class GameplayManager : MonoBehaviour
     public void AddMoney(int amount)
     {
         money += amount;
+        OnMoneyGain?.Invoke();
     }
 
     public void Play()

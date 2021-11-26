@@ -3860,7 +3860,7 @@ MonoBehaviour:
   - {fileID: 43083950}
   - {fileID: 973253398}
   levelTimer: 0
-  levelLength: 101
+  levelLength: 156
   dayNumber: 0
   money: 0
   songNames:
@@ -4409,8 +4409,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 397.2, y: 551}
-  m_SizeDelta: {x: 200, y: 50}
+  m_AnchoredPosition: {x: 444.01788, y: 551}
+  m_SizeDelta: {x: 293.6356, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1453981141
 MonoBehaviour:
@@ -4903,6 +4903,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1657117604}
+  - component: {fileID: 1657117605}
   m_Layer: 0
   m_Name: Day
   m_TagString: Untagged
@@ -4926,6 +4927,20 @@ Transform:
   m_Father: {fileID: 392365224}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1657117605
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1657117603}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 140e1d9163f9b4c4d8e8aad09d91ce08, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameplayManager: {fileID: 1342383920}
+  dayText: {fileID: 1453981141}
 --- !u!1 &1739588697
 GameObject:
   m_ObjectHideFlags: 0
@@ -5726,6 +5741,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1915242894}
+  - component: {fileID: 1915242895}
   m_Layer: 0
   m_Name: Money
   m_TagString: Untagged
@@ -5749,6 +5765,20 @@ Transform:
   m_Father: {fileID: 392365224}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1915242895
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1915242893}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2d6c5c3e2f8bc4441b73407900db86e5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameplayManager: {fileID: 0}
+  moneyText: {fileID: 0}
 --- !u!1 &1940185820
 GameObject:
   m_ObjectHideFlags: 0
