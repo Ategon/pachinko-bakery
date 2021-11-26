@@ -152,6 +152,21 @@ public class GameplayManager : MonoBehaviour
         AudioManager.Instance.Play("Load");
     }
 
+    public void AteDiscord()
+    {
+        Application.OpenURL("https://discord.gg/HNwTAW7");
+    }
+
+    public void AteTwitter()
+    {
+        Application.OpenURL("https://twitter.com/Etegondev");
+    }
+
+    public void AteYT()
+    {
+        Application.OpenURL("https://www.youtube.com/playlist?list=PLS74pJwD4TnydqBISELS6DrywMzhEU6MK");
+    }
+
     public void Quit()
     {
 #if UNITY_EDITOR
