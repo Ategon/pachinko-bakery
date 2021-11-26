@@ -1,9 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameplayManager : MonoBehaviour
 {
+    [Header("References")]
+    [SerializeField] private GameObject mainMenu;
+    [SerializeField] private GameObject optionsMenu;
+    [SerializeField] private GameObject creditsMenu;
+    [SerializeField] private Slider[] sliders;
+
     [Header("Variables")]
     [SerializeField] private float levelTimer;
     [SerializeField] private int levelLength;
@@ -42,7 +49,10 @@ public class GameplayManager : MonoBehaviour
 
     void Start()
     {
-
+        AudioManager.Instance.Play(songNames[0]);
+        sliders[0].value = AudioManager.Instance.Volume(-1f);
+        sliders[1].value = AudioManager.Instance.Volume(-1f, "Soundtracks");
+        sliders[2].value = AudioManager.Instance.Volume(-1f, "UI SFX");
     }
 
     #endregion
@@ -72,14 +82,37 @@ public class GameplayManager : MonoBehaviour
         money += amount;
     }
 
+    public void Play()
+    {
+        mainMenu.SetActive(false);
+        optionsMenu.SetActive(false);
+        creditsMenu.SetActive(false);
+        StartDay();
+    }
+
     public void ToggleOptions()
     {
-
+        if (optionsMenu.activeSelf)
+        {
+            optionsMenu.SetActive(false);
+        } else
+        {
+            optionsMenu.SetActive(true);
+            creditsMenu.SetActive(false);
+        }
     }
 
     public void ToggleCredits()
     {
-
+        if (creditsMenu.activeSelf)
+        {
+            creditsMenu.SetActive(false);
+        }
+        else
+        {
+            optionsMenu.SetActive(false);
+            creditsMenu.SetActive(true);
+        }
     }
 
     public void MasterChange(float amount)
