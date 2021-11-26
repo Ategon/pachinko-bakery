@@ -72,6 +72,21 @@ public class GameplayManager : MonoBehaviour
         money += amount;
     }
 
+    public void ToggleOptions()
+    {
+
+    }
+
+    public void ToggleCredits()
+    {
+
+    }
+
+    public void Quit()
+    {
+
+    }
+
     #endregion
 
     #region Private Functions
