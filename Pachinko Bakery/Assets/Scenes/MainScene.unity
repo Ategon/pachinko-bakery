@@ -6198,8 +6198,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inputHandler: {fileID: 1967213253}
+  ballPrefabs: []
+  ballSprites: []
   mousePosition: {x: 0, y: 0}
   cannonAngle: 0
+  waitRight: 0
 --- !u!1 &1967213252
 GameObject:
   m_ObjectHideFlags: 0
