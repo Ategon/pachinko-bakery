@@ -6198,7 +6198,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inputHandler: {fileID: 1967213253}
-  moveSpeed: 0.1
   mousePosition: {x: 0, y: 0}
   cannonAngle: 0
 --- !u!1 &1967213252
@@ -6232,6 +6231,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mousePosition: {x: 0, y: 0}
+  rightClickInput: 0
 --- !u!114 &1967213254
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6278,7 +6278,19 @@ MonoBehaviour:
     m_ActionId: 97039f92-9582-469d-b513-7d5a447b56a5
     m_ActionName: UI/Click[/Mouse/leftButton,/Pen/tip]
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1967213253}
+        m_TargetAssemblyTypeName: InputHandler, Assembly-CSharp
+        m_MethodName: OnRightClick
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: 62aa5a5c-84a3-4440-a5e4-b5f01d47e2ff
     m_ActionName: UI/RightClick[/Mouse/rightButton]
   m_NeverAutoSwitchControlSchemes: 0
