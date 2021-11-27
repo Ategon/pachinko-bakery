@@ -10,6 +10,12 @@ public class PegScript : MonoBehaviour
     [SerializeField] private Sprite[] sprites;
     [SerializeField] private SpriteRenderer spriteRenderer;
 
+    void OnEnable()
+    {
+        spriteRenderer.sprite = sprites[1];
+        hit = false;
+    }
+
     public void SetSprite(int id)
     {
         spriteRenderer.sprite = sprites[id];
