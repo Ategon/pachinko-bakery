@@ -25,6 +25,9 @@ public class PegManager : MonoBehaviour
         formation = Instantiate(formations[rnd], transform.position, Quaternion.identity);
 
         formation.transform.parent = gameObject.transform;
+
+        roundPegs = formation.GetComponent<PegFormation>().roundPegs;
+        squarePegs = formation.GetComponent<PegFormation>().squarePegs;
     }
 
     public void respawnPeg(int type, int amount = 1)
