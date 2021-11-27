@@ -34,6 +34,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 562210430047550735, guid: 2b23f4447cf0b3546b679bd9b7c7140c, type: 3}
+      propertyPath: breadType
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 562210430047550735, guid: 2b23f4447cf0b3546b679bd9b7c7140c, type: 3}
       propertyPath: sprites.Array.data[0]
       value: 
       objectReference: {fileID: 484012682, guid: b929cec935c8a2e45893f3ddaf682660, type: 3}
