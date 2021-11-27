@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 961775821360606009}
   - component: {fileID: -8794159653423474252}
   - component: {fileID: 8166706254924026114}
+  - component: {fileID: -3229807411446203770}
   m_Layer: 0
   m_Name: HeavyBall
   m_TagString: Ball
@@ -123,3 +124,16 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
+--- !u!114 &-3229807411446203770
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1087382330499261003}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3294811bb16b74146b7a69e44cadb884, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ballID: 1

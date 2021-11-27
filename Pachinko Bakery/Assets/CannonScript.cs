@@ -28,6 +28,12 @@ public class CannonScript : MonoBehaviour
         updatePreview();
     }
 
+    public void AddBall(int id)
+    {
+        balls.Enqueue(id);
+        updatePreview();
+    }
+
     public void AddForceAtAngle(float force, float angle, Rigidbody2D rb)
     {
         float xcomponent = Mathf.Cos(angle * Mathf.PI / 180) * force;

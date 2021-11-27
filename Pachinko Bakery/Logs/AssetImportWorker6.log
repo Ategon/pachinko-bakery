@@ -829,3 +829,7 @@ Received Import Request.
   path: Assets/Prefabs/BouncyBall.prefab
   artifactKey: Guid(5e642be3b153af6489ce9b7a064f4c46) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
 Start importing Assets/Prefabs/BouncyBall.prefab using Guid(5e642be3b153af6489ce9b7a064f4c46) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '89cc0bab4af4fb33cf6ac5c1ffc32c54') in 0.024285 seconds 
+Editor requested this worker to shutdown with reason: Scaling down because of idle timeout
+AssetImportWorker is now disconnected from the server
+Process exiting
+Exiting without the bug reporter. Application will terminate with return code 0
