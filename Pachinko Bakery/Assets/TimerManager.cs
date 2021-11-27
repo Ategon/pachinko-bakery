@@ -8,6 +8,9 @@ public class TimerManager : MonoBehaviour
     [Header("References")]
     [SerializeField] private GameplayManager gameplayManager;
     [SerializeField] private TextMeshProUGUI timerText;
+    [SerializeField] private SpriteRenderer backgroundNight;
+
+    [Header("Variables")]
     [SerializeField] private float minuteLength;
 
     void FixedUpdate()
@@ -29,5 +32,7 @@ public class TimerManager : MonoBehaviour
         }
 
         timerText.text = $"{hour}:{minString} {(pm ? "pm" : "am")}";
+        if(gameplayManager.LevelTimer > gameplayManager.LevelLength/2)
+        backgroundNight.color = new Color(1f, 1f, 1f, (gameplayManager.LevelTimer - gameplayManager.LevelLength / 2) * 2 / gameplayManager.LevelLength);
     }
 }

@@ -9,6 +9,8 @@ public class GameplayManager : MonoBehaviour
     [SerializeField] private GameObject mainMenu;
     [SerializeField] private GameObject optionsMenu;
     [SerializeField] private GameObject creditsMenu;
+    [SerializeField] private GameObject pachinkoBoard;
+    [SerializeField] private GameObject forge;
     [SerializeField] private Slider[] sliders;
 
     [Header("Variables")]
@@ -41,6 +43,12 @@ public class GameplayManager : MonoBehaviour
     public float Money
     {
         get { return money; }
+        private set {; }
+    }
+
+    public float LevelLength
+    {
+        get { return levelLength; }
         private set {; }
     }
 
@@ -89,6 +97,8 @@ public class GameplayManager : MonoBehaviour
         mainMenu.SetActive(false);
         optionsMenu.SetActive(false);
         creditsMenu.SetActive(false);
+        pachinkoBoard.SetActive(true);
+        forge.SetActive(true);
         StartDay();
     }
 
