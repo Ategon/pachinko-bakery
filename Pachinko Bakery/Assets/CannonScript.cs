@@ -15,22 +15,23 @@ public class CannonScript : MonoBehaviour
     [SerializeField] private Vector2 mousePosition;
     [SerializeField] private float cannonAngle;
     [SerializeField] private bool waitRight;
+    [SerializeField] private bool ballOut;
+    [SerializeField] private int bagSize;
+    [SerializeField] private int bagUsed;
     [SerializeField] private Queue<int> balls = new Queue<int>();
     //0 - normal ball, 1 - large ball, 2 - bouncy ball, 3 - cloning ball, 4 - low grav
 
     void Start()
     {
         balls.Enqueue(0);
-        balls.Enqueue(1);
-        balls.Enqueue(2);
-        balls.Enqueue(3);
-        balls.Enqueue(4);
+        balls.Enqueue(0);
         updatePreview();
     }
 
     public void AddBall(int id)
     {
         balls.Enqueue(id);
+        ballOut = false;
         updatePreview();
     }
 
@@ -76,11 +77,12 @@ public class CannonScript : MonoBehaviour
             if(waitRight == false)
             {
                 waitRight = true;
-                if(balls.Count > 0)
+                if(balls.Count > 0 && !ballOut)
                 {
                     //create ball
                     GameObject newBall = Instantiate(ballPrefabs[balls.Dequeue()], shotArea.position, Quaternion.identity);
                     AddForceAtAngle(25, cannonAngle, newBall.GetComponent<Rigidbody2D>());
+                    ballOut = true;
                     updatePreview();
                 }
             }
