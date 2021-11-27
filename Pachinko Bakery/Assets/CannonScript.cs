@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class CannonScript : MonoBehaviour
 {
@@ -10,6 +11,7 @@ public class CannonScript : MonoBehaviour
     [SerializeField] private Sprite[] ballSprites;
     [SerializeField] private SpriteRenderer previewSprite;
     [SerializeField] private Transform shotArea;
+    [SerializeField] private TextMeshProUGUI waitText;
 
     [Header("Variables")]
     [SerializeField] private Vector2 mousePosition;
@@ -18,6 +20,9 @@ public class CannonScript : MonoBehaviour
     [SerializeField] private bool ballOut;
     [SerializeField] private int bagSize;
     [SerializeField] private int bagUsed;
+    [SerializeField] private int repairTime = 10;
+    [SerializeField] private float repairTimer;
+    [SerializeField] private bool underRepair;
     [SerializeField] private Queue<int> balls = new Queue<int>();
     //0 - normal ball, 1 - large ball, 2 - bouncy ball, 3 - cloning ball, 4 - low grav
 
@@ -25,6 +30,7 @@ public class CannonScript : MonoBehaviour
     {
         balls.Enqueue(0);
         balls.Enqueue(0);
+        bagSize = 2;
         updatePreview();
     }
 
@@ -45,50 +51,77 @@ public class CannonScript : MonoBehaviour
 
     void Update()
     {
-        mousePosition = inputHandler.MousePosition;
-        mousePosition = Camera.main.ScreenToViewportPoint(mousePosition);
-        Vector2 positionOnScreen = Camera.main.WorldToViewportPoint(transform.position);
+        if (!underRepair)
+        {
+            mousePosition = inputHandler.MousePosition;
+            mousePosition = Camera.main.ScreenToViewportPoint(mousePosition);
+            Vector2 positionOnScreen = Camera.main.WorldToViewportPoint(transform.position);
 
-        float angle = AngleBetweenTwoPoints(positionOnScreen, mousePosition);
-        cannonAngle = angle - 90;
-        if (cannonAngle < -80 && cannonAngle >= -180) cannonAngle = -80;
-        else if (cannonAngle < -180 || cannonAngle > 80) cannonAngle = 80;
-        transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, cannonAngle));
+            float angle = AngleBetweenTwoPoints(positionOnScreen, mousePosition);
+            cannonAngle = angle - 90;
+            if (cannonAngle < -80 && cannonAngle >= -180) cannonAngle = -80;
+            else if (cannonAngle < -180 || cannonAngle > 80) cannonAngle = 80;
+            transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, cannonAngle));
+        }
     }
 
     void updatePreview()
     {
-        if (balls.Count > 0)
+        if(bagUsed == bagSize)
         {
-            previewSprite.sprite = ballSprites[balls.Peek()];
+            bagUsed = 0;
+            repairTimer = repairTime;
+            underRepair = true;
         } else
         {
-            previewSprite.sprite = null;
+            if (balls.Count > 0)
+            {
+                previewSprite.sprite = ballSprites[balls.Peek()];
+            }
+            else
+            {
+                previewSprite.sprite = null;
+            }
         }
     }
 
     void FixedUpdate()
     {
-
-        //peek at next ball for showing
-
-        if(inputHandler.RightClickInput == true)
+        if (underRepair)
         {
-            if(waitRight == false)
+            repairTimer -= Time.deltaTime;
+            waitText.text = $"{Mathf.Round(repairTimer * 10f) / 10f}";
+            if(repairTimer < 0)
             {
-                waitRight = true;
-                if(balls.Count > 0 && !ballOut)
+                underRepair = false;
+                waitText.text = "";
+                updatePreview();
+            }
+        }
+
+
+        if (!underRepair)
+        {
+            if (inputHandler.RightClickInput == true)
+            {
+                if (waitRight == false)
                 {
-                    //create ball
-                    GameObject newBall = Instantiate(ballPrefabs[balls.Dequeue()], shotArea.position, Quaternion.identity);
-                    AddForceAtAngle(25, cannonAngle, newBall.GetComponent<Rigidbody2D>());
-                    ballOut = true;
-                    updatePreview();
+                    waitRight = true;
+                    if (balls.Count > 0 && !ballOut)
+                    {
+                        //create ball
+                        GameObject newBall = Instantiate(ballPrefabs[balls.Dequeue()], shotArea.position, Quaternion.identity);
+                        AddForceAtAngle(25, cannonAngle, newBall.GetComponent<Rigidbody2D>());
+                        bagUsed++;
+                        ballOut = true;
+                        updatePreview();
+                    }
                 }
             }
-        } else
-        {
-            waitRight = false;
+            else
+            {
+                waitRight = false;
+            }
         }
     }
 
