@@ -38,7 +38,7 @@ public class CannonScript : MonoBehaviour
     {
         balls.Enqueue(id);
         ballOut = false;
-        updatePreview();
+        if(!underRepair) updatePreview();
     }
 
     public void AddForceAtAngle(float force, float angle, Rigidbody2D rb)
@@ -67,21 +67,28 @@ public class CannonScript : MonoBehaviour
 
     void updatePreview()
     {
-        if(bagUsed == bagSize)
+        if (balls.Count > 0)
         {
+            previewSprite.sprite = ballSprites[balls.Peek()];
+        }
+        else
+        {
+            previewSprite.sprite = null;
+        }
+    }
+
+    void removePreview()
+    {
+        if (bagUsed == bagSize)
+        {
+            previewSprite.sprite = null;
             bagUsed = 0;
             repairTimer = repairTime;
             underRepair = true;
-        } else
+        }
+        else
         {
-            if (balls.Count > 0)
-            {
-                previewSprite.sprite = ballSprites[balls.Peek()];
-            }
-            else
-            {
-                previewSprite.sprite = null;
-            }
+            previewSprite.sprite = null;
         }
     }
 
@@ -114,7 +121,7 @@ public class CannonScript : MonoBehaviour
                         AddForceAtAngle(25, cannonAngle, newBall.GetComponent<Rigidbody2D>());
                         bagUsed++;
                         ballOut = true;
-                        updatePreview();
+                        removePreview();
                     }
                 }
             }

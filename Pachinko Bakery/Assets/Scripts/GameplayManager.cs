@@ -210,6 +210,7 @@ public class GameplayManager : MonoBehaviour
         }
 
         EndDay();
+        StartDay(); //TEMP
     }
 
     #endregion

@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Ball
   - EndZone
+  - Peg
   layers:
   - Default
   - TransparentFX
