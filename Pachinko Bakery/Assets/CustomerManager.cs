@@ -32,7 +32,7 @@ public class CustomerManager : MonoBehaviour
             if(productAmounts[id-1] > 0)
             {
                 productAmounts[id - 1] -= 1;
-                gameplayManager.AddMoney(4);
+                gameplayManager.AddMoney(3);
                 nextProduct = Random.Range(1, 3);
                 textObjects[id - 1].text = "" + productAmounts[id - 1];
                 spriteRenderer.sprite = sprites[nextProduct - 1];
