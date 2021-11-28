@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 562210430047550735}
   m_Layer: 0
   m_Name: RoundPeg
-  m_TagString: Untagged
+  m_TagString: Peg
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -145,3 +145,4 @@ MonoBehaviour:
   - {fileID: 1549587457, guid: b929cec935c8a2e45893f3ddaf682660, type: 3}
   - {fileID: -1729506440, guid: b929cec935c8a2e45893f3ddaf682660, type: 3}
   spriteRenderer: {fileID: 1816074154443609185}
+  particleSystem: {fileID: 6825982327728359113, guid: 9ec6864ff43fea04f9fea3f4a28cda2e, type: 3}

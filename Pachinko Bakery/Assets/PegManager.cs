@@ -11,8 +11,10 @@ public class PegManager : MonoBehaviour
 
     void Start()
     {
+        GameplayManager.OnDayStart += newBoard;
         newBoard();
     }
+
 
     public void newBoard()
     {
@@ -82,5 +84,14 @@ public class PegManager : MonoBehaviour
                 if (amountAdded >= amount) break;
             }
         }
+    }
+
+    private void OnDestroy()
+    {
+        GameplayManager.OnDayStart -= newBoard;
+    }
+    private void OnDisable()
+    {
+        GameplayManager.OnDayStart -= newBoard;
     }
 }

@@ -9,6 +9,7 @@ public class PegScript : MonoBehaviour
     [SerializeField] private bool hit;
     [SerializeField] private Sprite[] sprites;
     [SerializeField] private SpriteRenderer spriteRenderer;
+    [SerializeField] private ParticleSystem particleSystem;
 
     void OnEnable()
     {
@@ -29,6 +30,7 @@ public class PegScript : MonoBehaviour
             if(pegTimer <= 0)
             {
                 GameObject.Find("TopThings").GetComponent<CustomerManager>().addProduct(breadType);
+                Instantiate(particleSystem, transform.position, Quaternion.identity);
                 this.gameObject.SetActive(false);
             }
         }

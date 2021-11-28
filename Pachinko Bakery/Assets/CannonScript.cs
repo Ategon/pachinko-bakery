@@ -25,12 +25,12 @@ public class CannonScript : MonoBehaviour
     [SerializeField] private float repairTimer;
     [SerializeField] private bool underRepair;
     [SerializeField] private Queue<int> balls = new Queue<int>();
-    //0 - normal ball, 1 - large ball, 2 - bouncy ball, 3 - cloning ball, 4 - low grav
+    //0 - normal ball, 1 - large ball, 2 - bouncy ball, 3 - money ball, 4 - low grav
 
     void Start()
     {
-        balls.Enqueue(0);
-        balls.Enqueue(0);
+        balls.Enqueue(3);
+        balls.Enqueue(3);
         bagSize = 2;
         updatePreview();
     }
@@ -84,7 +84,7 @@ public class CannonScript : MonoBehaviour
         {
             previewSprite.sprite = null;
             bagUsed = 0;
-            repairTimer = repairTime;
+            repairTimer = repairTime * gameplayManager.cannonRepairMult;
             underRepair = true;
         }
         else

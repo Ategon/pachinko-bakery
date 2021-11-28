@@ -16,7 +16,7 @@ public class MoneyManager : MonoBehaviour
 
     void UpdateMoney()
     {
-        moneyText.text = $"{gameplayManager.Money} $";
+        moneyText.text = $"{(Mathf.Floor(gameplayManager.Money*100)/100).ToString("0.00")} $";
     }
 
     private void OnDestroy()

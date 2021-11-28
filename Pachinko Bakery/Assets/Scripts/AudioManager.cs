@@ -1,9 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEditor;
+//using UnityEditor;
 using UnityEngine.UIElements;
-using UnityEditor.UIElements;
+//using UnityEditor.UIElements;
 using System;
 
 public class AudioManager : MonoBehaviour
@@ -650,7 +650,7 @@ public class AudioManager : MonoBehaviour
     }
 
     #endregion
-
+    /*
     #region Custom Editor
 
     [CustomPropertyDrawer(typeof(Debugging))]
@@ -851,7 +851,7 @@ public class AudioManager : MonoBehaviour
     }
 
     #endregion
-
+    */
 }
 
 [System.Serializable]

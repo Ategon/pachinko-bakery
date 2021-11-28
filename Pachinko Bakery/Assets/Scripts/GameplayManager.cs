@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 public class GameplayManager : MonoBehaviour
 {
@@ -17,13 +18,21 @@ public class GameplayManager : MonoBehaviour
     [SerializeField] private Slider[] sliders;
     [SerializeField] private GameObject pauseCanvas;
     [SerializeField] private GameObject pauseButton;
+    [SerializeField] private GameObject dayText;
+    [SerializeField] private TextMeshProUGUI dayTitle;
+    [SerializeField] private TextMeshProUGUI dayDesc;
+    [SerializeField] private Image materialColor;
 
     [Header("Variables")]
     [SerializeField] private float levelTimer;
     [SerializeField] private int levelLength;
     [SerializeField] private int dayNumber;
-    [SerializeField] private int money;
+    [SerializeField] private float money;
+    [SerializeField] private float titleTimer;
     public bool paused;
+    private float timeAmount = 0.5f;
+    [SerializeField] private string[] dayTitles;
+    [SerializeField] private string[] dayDescs;
 
     [Header("Multipliers")]
     public float fireMult = 1;
@@ -86,9 +95,15 @@ public class GameplayManager : MonoBehaviour
     public void StartDay()
     {
         levelTimer = 0;
+        OnMoneyGain?.Invoke();
         dayNumber++;
 
-        if(dayNumber == 1)
+        dayTitle.text = dayTitles[dayNumber - 1];
+        dayDesc.text = dayDescs[dayNumber - 1];
+        dayText.SetActive(true);
+        StartCoroutine("ShowDayTimer"); 
+
+        if (dayNumber == 1)
         {
             AudioManager.Instance.Play(songNames[dayNumber], true, true);
         } else
@@ -128,7 +143,7 @@ public class GameplayManager : MonoBehaviour
         StartCoroutine("IncreaseLevelTimer");
     }
 
-    public void AddMoney(int amount)
+    public void AddMoney(float amount)
     {
         money += amount;
         OnMoneyGain?.Invoke();
@@ -287,6 +302,37 @@ public class GameplayManager : MonoBehaviour
 
         EndDay();
         StartDay(); //TEMP
+    }
+
+    IEnumerator ShowDayTimer()
+    {
+        while (titleTimer <timeAmount)
+        {
+            materialColor.color = Color.Lerp(Color.clear, new Color(0f, 0f, 0f, 0.5f), titleTimer/timeAmount);
+            dayTitle.color = Color.Lerp(Color.clear, Color.white, titleTimer / timeAmount);
+            dayDesc.color = Color.Lerp(Color.clear, Color.white, titleTimer / timeAmount);
+            titleTimer += Time.deltaTime;
+            yield return null;
+        }
+
+        yield return new WaitForSeconds(5);
+        titleTimer = 0;
+        StartCoroutine("HideDayTimer");
+    }
+
+    IEnumerator HideDayTimer()
+    {
+        while (titleTimer <timeAmount)
+        {
+            materialColor.color = Color.Lerp(new Color(0f, 0f, 0f, 0.5f), Color.clear, titleTimer / timeAmount);
+            dayTitle.color = Color.Lerp(Color.white, Color.clear, titleTimer / timeAmount);
+            dayDesc.color = Color.Lerp(Color.white, Color.clear, titleTimer / timeAmount);
+            titleTimer += Time.deltaTime;
+            yield return null;
+        }
+
+        dayText.SetActive(false);
+        titleTimer = 0;
     }
 
     #endregion

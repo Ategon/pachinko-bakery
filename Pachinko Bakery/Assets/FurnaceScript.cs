@@ -45,6 +45,15 @@ public class FurnaceScript : MonoBehaviour
         heatText.color = heatColors[heatState];
     }
 
+    public void SetFire()
+    {
+        //disable all buttons
+        //enable click button
+        //play particle
+
+        //boolean for if starting in or not and then reverts to appropriate spot(whether in order or not)
+    }
+
     public void StartBaking(int type)
     {
         GameObject.Find("GameplayManager").GetComponent<GameplayManager>().AddMoney(-1);
@@ -65,7 +74,7 @@ public class FurnaceScript : MonoBehaviour
             isBaking = false;
             clickButton.SetActive(false);
             furnaceImage.sprite = sprites[0];
-            cooldownTimer = 15;
+            cooldownTimer = 15f * GameObject.Find("GameplayManager").GetComponent<GameplayManager>().ovenRepairMult;
             onCooldown = true;
 
         } else
@@ -110,7 +119,7 @@ public class FurnaceScript : MonoBehaviour
             {
                 lastTimeCheck = Mathf.Floor(bakingTimer);
 
-                if (Random.Range(0f, 1f) <= fireChances[heatState])
+                if (Random.Range(0f, 1f) <= fireChances[heatState] * GameObject.Find("GameplayManager").GetComponent<GameplayManager>().fireMult)
                 {
                     onSmoke = true;
                     smokeParticles.Play();
