@@ -31,6 +31,7 @@ public class FurnaceScript : MonoBehaviour
 
     public void StartBaking(int type)
     {
+        GameObject.Find("GameplayManager").GetComponent<GameplayManager>().AddMoney(-1);
         bakingTimer = 15f;
         bakingType = type;
         isBaking = true;

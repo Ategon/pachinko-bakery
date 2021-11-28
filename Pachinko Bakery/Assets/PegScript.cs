@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PegScript : MonoBehaviour
 {
-    [SerializeField] private float breadType;
+    [SerializeField] private int breadType;
     [SerializeField] private float pegTimer;
     [SerializeField] private bool hit;
     [SerializeField] private Sprite[] sprites;
@@ -28,6 +28,7 @@ public class PegScript : MonoBehaviour
             pegTimer -= Time.deltaTime;
             if(pegTimer <= 0)
             {
+                GameObject.Find("TopThings").GetComponent<CustomerManager>().addProduct(breadType);
                 this.gameObject.SetActive(false);
             }
         }
@@ -37,9 +38,12 @@ public class PegScript : MonoBehaviour
     {
         if (collision.gameObject.tag == "Ball")
         {
-            hit = true;
-            pegTimer = 5f;
-            spriteRenderer.sprite = sprites[0];
+            if (!hit)
+            {
+                hit = true;
+                pegTimer = 5f;
+                spriteRenderer.sprite = sprites[0];
+            }
         }
     }
 }

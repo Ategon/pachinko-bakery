@@ -16,7 +16,7 @@ public class MoneyManager : MonoBehaviour
 
     void UpdateMoney()
     {
-        moneyText.text = $"{gameplayManager.Money}";
+        moneyText.text = $"{gameplayManager.Money} $";
     }
 
     private void OnDestroy()
