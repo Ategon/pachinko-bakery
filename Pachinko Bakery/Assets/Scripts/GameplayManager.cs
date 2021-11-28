@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class GameplayManager : MonoBehaviour
 {
@@ -9,16 +10,29 @@ public class GameplayManager : MonoBehaviour
     [SerializeField] private GameObject mainMenu;
     [SerializeField] private GameObject optionsMenu;
     [SerializeField] private GameObject creditsMenu;
+    [SerializeField] private GameObject title;
     [SerializeField] private GameObject pachinkoBoard;
     [SerializeField] private GameObject topThings;
     [SerializeField] private GameObject forge;
     [SerializeField] private Slider[] sliders;
+    [SerializeField] private GameObject pauseCanvas;
+    [SerializeField] private GameObject pauseButton;
 
     [Header("Variables")]
     [SerializeField] private float levelTimer;
     [SerializeField] private int levelLength;
     [SerializeField] private int dayNumber;
     [SerializeField] private int money;
+    public bool paused;
+
+    [Header("Multipliers")]
+    public float fireMult = 1;
+    public float firePegMult = 1;
+    public float heavyMult = 1;
+    public float customerTimerMult = 1;
+    public float cannonRepairMult = 1;
+    public float ovenRepairMult = 1;
+
 
     [Space(5)]
     [SerializeField] private string[] songNames;
@@ -82,6 +96,33 @@ public class GameplayManager : MonoBehaviour
             AudioManager.Instance.Play(songNames[dayNumber], true);
         }
 
+        switch (dayNumber)
+        {
+            case 1:
+                break;
+            case 2:
+                cannonRepairMult += 0.5f;
+                ovenRepairMult += 0.5f;
+                break;
+            case 3:
+                cannonRepairMult -= 0.5f;
+                ovenRepairMult -= 0.5f;
+                heavyMult += 0.5f;
+                break;
+            case 4:
+                heavyMult -= 0.5f;
+                firePegMult += 1;
+                fireMult += 1;
+                break;
+            case 5:
+                firePegMult -= 1;
+                fireMult -= 1;
+                customerTimerMult += 1;
+                break;
+            default:
+                break;
+        }
+
         OnDayStart?.Invoke();
 
         StartCoroutine("IncreaseLevelTimer");
@@ -101,6 +142,7 @@ public class GameplayManager : MonoBehaviour
         pachinkoBoard.SetActive(true);
         topThings.SetActive(true);
         forge.SetActive(true);
+        title.SetActive(false);
         StartDay();
     }
 
@@ -109,10 +151,12 @@ public class GameplayManager : MonoBehaviour
         if (optionsMenu.activeSelf)
         {
             optionsMenu.SetActive(false);
+            title.SetActive(true);
         } else
         {
             optionsMenu.SetActive(true);
             creditsMenu.SetActive(false);
+            title.SetActive(false);
         }
     }
 
@@ -121,11 +165,13 @@ public class GameplayManager : MonoBehaviour
         if (creditsMenu.activeSelf)
         {
             creditsMenu.SetActive(false);
+            title.SetActive(true);
         }
         else
         {
             optionsMenu.SetActive(false);
             creditsMenu.SetActive(true);
+            title.SetActive(false);
         }
     }
 
@@ -179,6 +225,34 @@ public class GameplayManager : MonoBehaviour
     public void AteYT()
     {
         Application.OpenURL("https://www.youtube.com/playlist?list=PLS74pJwD4TnydqBISELS6DrywMzhEU6MK");
+    }
+
+    public void Pause()
+    {
+        Time.timeScale = 0;
+        AudioManager.Instance.Pitch(0f, "Soundtracks", true);
+        pauseCanvas.SetActive(true);
+        pauseButton.SetActive(false);
+        paused = true;
+    }
+
+    public void Unpause()
+    {
+        Time.timeScale = 1;
+        pauseCanvas.SetActive(false);
+        pauseButton.SetActive(true);
+        paused = false;
+        AudioManager.Instance.Pitch(1f, "Soundtracks", true);
+    }
+
+    public void QuitLevel()
+    {
+        Time.timeScale = 1;
+        pauseCanvas.SetActive(false);
+        pauseButton.SetActive(true);
+        paused = false;
+        AudioManager.Instance.Pitch(1f, "Soundtracks");
+        SceneManager.LoadScene("MainScene");
     }
 
     public void Quit()

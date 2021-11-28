@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
 
 public class FurnaceScript : MonoBehaviour
 {
@@ -14,6 +15,21 @@ public class FurnaceScript : MonoBehaviour
     [SerializeField] private int bakingType;
     [SerializeField] private float[] heatMultipliers;
     [SerializeField] private GameObject collectButton;
+    [SerializeField] private Sprite[] sprites;
+    [SerializeField] private Image furnaceImage;
+    [SerializeField] private GameObject clickButton;
+    [SerializeField] private ParticleSystem smokeParticles;
+    [SerializeField] private ParticleSystem fireParticles;
+
+    [SerializeField] private float[] fireChances;
+    [SerializeField] private bool onSmoke;
+    [SerializeField] private float smokeTimer;
+    [SerializeField] private float[] smokeMultipliers;
+    [SerializeField] private float lastTimeCheck;
+    [SerializeField] private TextMeshProUGUI cooldownText;
+    [SerializeField] private float cooldownTimer;
+    [SerializeField] private bool onCooldown;
+    [SerializeField] private GameObject startButton;
 
     void Start()
     {
@@ -34,18 +50,81 @@ public class FurnaceScript : MonoBehaviour
         GameObject.Find("GameplayManager").GetComponent<GameplayManager>().AddMoney(-1);
         bakingTimer = 15f;
         bakingType = type;
+        furnaceImage.sprite = sprites[1];
         isBaking = true;
+    }
+
+    public void ExtinguishFire()
+    {
+        if(smokeTimer < 0)
+        {
+            //fire
+            onSmoke = false;
+            smokeParticles.Stop();
+            fireParticles.Stop();
+            isBaking = false;
+            clickButton.SetActive(false);
+            furnaceImage.sprite = sprites[0];
+            cooldownTimer = 15;
+            onCooldown = true;
+
+        } else
+        {
+            //smoke
+            onSmoke = false;
+            smokeParticles.Stop();
+            clickButton.SetActive(false);
+        }
     }
 
     void FixedUpdate()
     {
-        if (isBaking)
+        if (onCooldown)
+        {
+            cooldownTimer -= Time.deltaTime;
+            cooldownText.text = $"{Mathf.Round(cooldownTimer * 10f) / 10f}";
+            if (cooldownTimer < 0)
+            {
+                onCooldown = false;
+                startButton.SetActive(true);
+                cooldownText.text = "";
+            }
+        } 
+
+
+        if (onSmoke)
+        {
+            smokeTimer -= Time.deltaTime * smokeMultipliers[heatState];
+            if (smokeTimer < 0)
+            {
+                fireParticles.Play();
+            }
+        }
+
+
+        if (isBaking && !onSmoke && !onCooldown)
         {
             bakingTimer -= Time.deltaTime * heatMultipliers[heatState];
-            if (bakingTimer < 0)
+
+            if (lastTimeCheck != Mathf.Floor(bakingTimer))
             {
-                isBaking = false;
-                collectButton.SetActive(true);
+                lastTimeCheck = Mathf.Floor(bakingTimer);
+
+                if (Random.Range(0f, 1f) <= fireChances[heatState])
+                {
+                    onSmoke = true;
+                    smokeParticles.Play();
+                    clickButton.gameObject.SetActive(true);
+                    clickButton.SetActive(true);
+                    smokeTimer = 8f;
+                }
+
+                if (bakingTimer < 0 && !onSmoke)
+                {
+                    isBaking = false;
+                    furnaceImage.sprite = sprites[0];
+                    collectButton.SetActive(true);
+                }
             }
         }
     }

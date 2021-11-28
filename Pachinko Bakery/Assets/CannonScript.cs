@@ -12,6 +12,7 @@ public class CannonScript : MonoBehaviour
     [SerializeField] private SpriteRenderer previewSprite;
     [SerializeField] private Transform shotArea;
     [SerializeField] private TextMeshProUGUI waitText;
+    [SerializeField] private GameplayManager gameplayManager;
 
     [Header("Variables")]
     [SerializeField] private Vector2 mousePosition;
@@ -51,7 +52,7 @@ public class CannonScript : MonoBehaviour
 
     void Update()
     {
-        if (!underRepair)
+        if (!underRepair && !gameplayManager.paused)
         {
             mousePosition = inputHandler.MousePosition;
             mousePosition = Camera.main.ScreenToViewportPoint(mousePosition);
@@ -107,7 +108,7 @@ public class CannonScript : MonoBehaviour
         }
 
 
-        if (!underRepair)
+        if (!underRepair && !gameplayManager.paused)
         {
             if (inputHandler.RightClickInput == true)
             {
