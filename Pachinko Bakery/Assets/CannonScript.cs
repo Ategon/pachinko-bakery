@@ -33,10 +33,15 @@ public class CannonScript : MonoBehaviour
 
     void Start()
     {
-        balls.Enqueue(3);
-        balls.Enqueue(3);
+        balls.Enqueue(0);
+        balls.Enqueue(0);
         bagSize = 2;
         updatePreview();
+    }
+
+    public void EnqueueBall(int id)
+    {
+        balls.Enqueue(id);
     }
 
     public void AddBall(int id)

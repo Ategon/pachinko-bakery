@@ -24,6 +24,7 @@ public class GameplayManager : MonoBehaviour
     [SerializeField] private Image materialColor;
     [SerializeField] private GameObject dayMenuCanvas;
     [SerializeField] private GameObject shopCanvas;
+    [SerializeField] private CannonScript cannonScript;
     [SerializeField] private CustomerManager customerManager;
 
     [SerializeField] private Image shopButton1;
@@ -38,15 +39,26 @@ public class GameplayManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI shopDesc2;
     [SerializeField] private TextMeshProUGUI shopDesc3;
 
+    [SerializeField] private TextMeshProUGUI shopPrice1;
+    [SerializeField] private TextMeshProUGUI shopPrice2;
+    [SerializeField] private TextMeshProUGUI shopPrice3;
+
     [SerializeField] private TextMeshProUGUI endDayText;
     [SerializeField] private TextMeshProUGUI moneyTallyText;
     [SerializeField] private TextMeshProUGUI overstockText;
+
+    [SerializeField] private GameObject shop1Object;
+    [SerializeField] private GameObject shop2Object;
+    [SerializeField] private GameObject shop3Object;
 
     [SerializeField] private TextMeshProUGUI shopBalanceText;
 
     [SerializeField] private PhysicsMaterial2D normalMat;
     [SerializeField] private PhysicsMaterial2D heavyMat;
     [SerializeField] private PhysicsMaterial2D bouncyMat;
+
+    [SerializeField] private GameObject[] ovens;
+    [SerializeField] private int ovenAmount = 1;
 
     [Header("Variables")]
     [SerializeField] private float levelTimer;
@@ -321,6 +333,44 @@ public class GameplayManager : MonoBehaviour
 
     public void BuyUpgrade(int buttonId)
     {
+        float itemCost = itemPrices[shopIds[buttonId]];
+
+        if(money >= itemCost)
+        {
+            AddMoney(-1f * itemPrices[shopIds[buttonId]]);
+
+            if(buttonId == 0)
+            {
+                shop1Object.SetActive(false);
+            }
+
+            if (buttonId == 1)
+            {
+                shop2Object.SetActive(false);
+            }
+
+            if (buttonId == 2)
+            {
+                shop3Object.SetActive(false);
+            }
+
+            //GETTING ITEM EFFECTS
+
+            if(shopIds[buttonId] >= 0 && shopIds[buttonId] <= 4)
+            {
+                //balls
+                cannonScript.EnqueueBall(shopIds[buttonId]);
+            } else if (shopIds[buttonId] >= 5 && shopIds[buttonId] <= 9)
+            {
+                //oven
+                ovens[ovenAmount++].SetActive(true);
+            } else
+            {
+                //upgrades
+                //TODO
+            }
+        } 
+
         shopBalanceText.text = $"Money: ${money.ToString("0.00")}";
     }
 
@@ -363,6 +413,9 @@ public class GameplayManager : MonoBehaviour
     private void GenerateShopTiles()
     {
         shopBalanceText.text = $"Money: ${money.ToString("0.00")}";
+        shop1Object.SetActive(true);
+        shop2Object.SetActive(true);
+        shop3Object.SetActive(true);
 
         for (int i = 0; i < 3; i++)
         {
@@ -394,13 +447,20 @@ public class GameplayManager : MonoBehaviour
 
         shopTitle3.text = itemTitles[shopIds[2]];
         shopDesc3.text = itemDescs[shopIds[2]];
+
+        shopPrice1.text = $"Price: ${itemPrices[shopIds[0]].ToString("0.00")}";
+        shopPrice2.text = $"Price: ${itemPrices[shopIds[1]].ToString("0.00")}";
+        shopPrice3.text = $"Price: ${itemPrices[shopIds[2]].ToString("0.00")}";
     }
 
     public void RefreshShop()
     {
-        AddMoney(-5f);
-        shopBalanceText.text = $"Money: ${money.ToString("0.00")}";
-        GenerateShopTiles();
+        if (money >= 5f)
+        {
+            AddMoney(-5f);
+            shopBalanceText.text = $"Money: ${money.ToString("0.00")}";
+            GenerateShopTiles();
+        }
     }
 
     public void GoNextDay()
