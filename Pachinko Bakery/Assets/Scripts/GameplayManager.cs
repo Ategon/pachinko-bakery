@@ -10,6 +10,7 @@ public class GameplayManager : MonoBehaviour
     [SerializeField] private GameObject optionsMenu;
     [SerializeField] private GameObject creditsMenu;
     [SerializeField] private GameObject pachinkoBoard;
+    [SerializeField] private GameObject topThings;
     [SerializeField] private GameObject forge;
     [SerializeField] private Slider[] sliders;
 
@@ -98,6 +99,7 @@ public class GameplayManager : MonoBehaviour
         optionsMenu.SetActive(false);
         creditsMenu.SetActive(false);
         pachinkoBoard.SetActive(true);
+        topThings.SetActive(true);
         forge.SetActive(true);
         StartDay();
     }
