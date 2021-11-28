@@ -15,6 +15,12 @@ public class CustomerManager : MonoBehaviour
     [SerializeField] private float customerTimer = 20f;
     [SerializeField] private TextMeshProUGUI customerTimerText;
 
+    public int[] ProductAmounts
+    {
+        get { return productAmounts; }
+        private set {; }
+    }
+
     public void addProduct(int id, int amount = 1)
     {
         productAmounts[id - 1] += amount;

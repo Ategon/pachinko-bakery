@@ -24,6 +24,25 @@ public class GameplayManager : MonoBehaviour
     [SerializeField] private Image materialColor;
     [SerializeField] private GameObject dayMenuCanvas;
     [SerializeField] private GameObject shopCanvas;
+    [SerializeField] private CustomerManager customerManager;
+
+    [SerializeField] private Image shopButton1;
+    [SerializeField] private Image shopButton2;
+    [SerializeField] private Image shopButton3;
+
+    [SerializeField] private TextMeshProUGUI shopTitle1;
+    [SerializeField] private TextMeshProUGUI shopTitle2;
+    [SerializeField] private TextMeshProUGUI shopTitle3;
+
+    [SerializeField] private TextMeshProUGUI shopDesc1;
+    [SerializeField] private TextMeshProUGUI shopDesc2;
+    [SerializeField] private TextMeshProUGUI shopDesc3;
+
+    [SerializeField] private TextMeshProUGUI endDayText;
+    [SerializeField] private TextMeshProUGUI moneyTallyText;
+    [SerializeField] private TextMeshProUGUI overstockText;
+
+    [SerializeField] private TextMeshProUGUI shopBalanceText;
 
     [SerializeField] private PhysicsMaterial2D normalMat;
     [SerializeField] private PhysicsMaterial2D heavyMat;
@@ -95,6 +114,7 @@ public class GameplayManager : MonoBehaviour
 
     void Start()
     {
+        EndDay(); // TEMP
         AudioManager.Instance.Play(songNames[0]);
         sliders[0].value = AudioManager.Instance.Volume(-1f);
         sliders[1].value = AudioManager.Instance.Volume(-1f, "Soundtracks");
@@ -299,8 +319,39 @@ public class GameplayManager : MonoBehaviour
 
     #region Private Functions
 
+    public void BuyUpgrade(int buttonId)
+    {
+        shopBalanceText.text = $"Money: ${money.ToString("0.00")}";
+    }
+
     private void EndDay()
     {
+        string dayText = "";
+        switch (dayNumber)
+        {
+            case 1:
+                dayText = "Monday";
+                break;
+            case 2:
+                dayText = "Tuesday";
+                break;
+            case 3:
+                dayText = "Wednesday";
+                break;
+            case 4:
+                dayText = "Thursday";
+                break;
+            case 5:
+                dayText = "Friday";
+                break;
+            default:
+                break;
+        }
+        endDayText.text = $"{dayText} Clear";
+        moneyTallyText.text = $"Money tally: ${money.ToString("0.00")}";
+        overstockText.text = $"Overstock: ${(customerManager.ProductAmounts[0] + customerManager.ProductAmounts[1]).ToString("0.00")}";
+        money += customerManager.ProductAmounts[0] + customerManager.ProductAmounts[1];
+
         Time.timeScale = 0;
         AudioManager.Instance.Pitch(0f, "Soundtracks", true);
         dayMenuCanvas.SetActive(true);
@@ -311,14 +362,16 @@ public class GameplayManager : MonoBehaviour
 
     private void GenerateShopTiles()
     {
-        for(int i = 0; i < 3; i++)
+        shopBalanceText.text = $"Money: ${money.ToString("0.00")}";
+
+        for (int i = 0; i < 3; i++)
         {
             float rarityChance = Random.Range(0, 1f);
-            if (rarityChance <= 0.2)
+            if (rarityChance <= 0.33)
             {
                 shopIds[i] = Random.Range(5, 15);
             }
-            else if (rarityChance <= 0.5)
+            else if (rarityChance <= 0.66)
             {
                 shopIds[i] = Random.Range(1, 5);
             }
@@ -328,12 +381,25 @@ public class GameplayManager : MonoBehaviour
             }
         }
 
-        //TODO add changing text + images;
+        //changing text + images;
+        shopButton1.color = itemColors[shopIds[0]];
+        shopButton2.color = itemColors[shopIds[1]];
+        shopButton3.color = itemColors[shopIds[2]];
+
+        shopTitle1.text = itemTitles[shopIds[0]];
+        shopDesc1.text = itemDescs[shopIds[0]];
+
+        shopTitle2.text = itemTitles[shopIds[1]];
+        shopDesc2.text = itemDescs[shopIds[1]];
+
+        shopTitle3.text = itemTitles[shopIds[2]];
+        shopDesc3.text = itemDescs[shopIds[2]];
     }
 
     public void RefreshShop()
     {
         AddMoney(-5f);
+        shopBalanceText.text = $"Money: ${money.ToString("0.00")}";
         GenerateShopTiles();
     }
 
