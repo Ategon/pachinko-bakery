@@ -30,6 +30,7 @@ public class CustomerManager : MonoBehaviour
     void Start()
     {
         nextProduct = Random.Range(1, 3);
+        GameplayManager.OnDayStart += UpdateDay;
     }
 
     void FixedUpdate()
@@ -46,6 +47,14 @@ public class CustomerManager : MonoBehaviour
         customerTimerText.text = $"{Mathf.Round(customerTimer * 10f) / 10f} sec";
     }
 
+    private void UpdateDay()
+    {
+        customerTimer = 20f;
+        nextProduct = Random.Range(1, 3);
+        productAmounts[0] = 0;
+        productAmounts[1] = 0;
+    }
+
     public void useProduct(int id)
     {
         if(id == nextProduct)
@@ -54,7 +63,7 @@ public class CustomerManager : MonoBehaviour
             if(productAmounts[id-1] > 0)
             {
                 productAmounts[id - 1] -= 1;
-                gameplayManager.AddMoney(3);
+                gameplayManager.AddMoney(gameplayManager.moneyMult);
                 nextProduct = Random.Range(1, 3);
                 textObjects[id - 1].text = "" + productAmounts[id - 1];
                 spriteRenderer.sprite = sprites[nextProduct - 1];
@@ -79,5 +88,14 @@ public class CustomerManager : MonoBehaviour
                 //not enough
             }
         }
+    }
+
+    private void OnDestroy()
+    {
+        GameplayManager.OnDayStart -= UpdateDay;
+    }
+    private void OnDisable()
+    {
+        GameplayManager.OnDayStart -= UpdateDay;
     }
 }

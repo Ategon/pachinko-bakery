@@ -78,7 +78,7 @@ public class GameplayManager : MonoBehaviour
     public float customerTimerMult = 1;
     public float cannonRepairMult = 1;
     public float ovenRepairMult = 1;
-
+    public float moneyMult = 3;
 
     [Space(5)]
     [SerializeField] private string[] songNames;
@@ -126,7 +126,8 @@ public class GameplayManager : MonoBehaviour
 
     void Start()
     {
-        EndDay(); // TEMP
+        //EndDay(); // TEMP
+        //money = 100; // TEMP
         AudioManager.Instance.Play(songNames[0]);
         sliders[0].value = AudioManager.Instance.Volume(-1f);
         sliders[1].value = AudioManager.Instance.Volume(-1f, "Soundtracks");
@@ -250,9 +251,7 @@ public class GameplayManager : MonoBehaviour
 
     public void SFXChange(float amount)
     {
-        AudioManager.Instance.Volume(amount, "UI");
-        AudioManager.Instance.Volume(amount, "Player");
-        AudioManager.Instance.Volume(amount, "Objects");
+        AudioManager.Instance.Volume(amount, "UI SFX");
     }
 
     public void UIHover()
@@ -364,10 +363,27 @@ public class GameplayManager : MonoBehaviour
             {
                 //oven
                 ovens[ovenAmount++].SetActive(true);
-            } else
+            } else if(shopIds[buttonId] == 10)
             {
                 //upgrades
-                //TODO
+                AddMoney(100);
+                fireMult += 0.5f;
+            } else if (shopIds[buttonId] == 11)
+            {
+                moneyMult += 1f;
+            } else if (shopIds[buttonId] == 12)
+            {
+                moneyMult += 2f;
+                fireMult += 1f;
+                ovenRepairMult += 1f;
+                cannonRepairMult += 1f;
+            } else if (shopIds[buttonId] == 13)
+            {
+                cannonScript.MoneyGambit();
+            } else if (shopIds[buttonId] == 14)
+            {
+                ovenRepairMult -= 0.25f;
+                cannonRepairMult -= 0.25f;
             }
         } 
 
@@ -400,7 +416,7 @@ public class GameplayManager : MonoBehaviour
         endDayText.text = $"{dayText} Clear";
         moneyTallyText.text = $"Money tally: ${money.ToString("0.00")}";
         overstockText.text = $"Overstock: ${(customerManager.ProductAmounts[0] + customerManager.ProductAmounts[1]).ToString("0.00")}";
-        money += customerManager.ProductAmounts[0] + customerManager.ProductAmounts[1];
+        AddMoney(customerManager.ProductAmounts[0] + customerManager.ProductAmounts[1]);
 
         Time.timeScale = 0;
         AudioManager.Instance.Pitch(0f, "Soundtracks", true);

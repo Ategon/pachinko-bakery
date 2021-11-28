@@ -30,11 +30,13 @@ public class FurnaceScript : MonoBehaviour
     [SerializeField] private float cooldownTimer;
     [SerializeField] private bool onCooldown;
     [SerializeField] private GameObject startButton;
+    [SerializeField] private GameObject choiceButton;
 
     void Start()
     {
         heatText.text = heatTexts[heatState];
         heatText.color = heatColors[heatState];
+        GameplayManager.OnDayStart += UpdateDay;
     }
 
     public void ChangeHeat()
@@ -52,6 +54,21 @@ public class FurnaceScript : MonoBehaviour
         //play particle
 
         //boolean for if starting in or not and then reverts to appropriate spot(whether in order or not)
+    }
+
+    private void UpdateDay()
+    {
+        startButton.SetActive(true);
+        clickButton.SetActive(false);
+        choiceButton.SetActive(false);
+        collectButton.SetActive(false);
+        cooldownText.text = "";
+        smokeParticles.Stop();
+        fireParticles.Stop();
+        furnaceImage.sprite = sprites[0];
+        onSmoke = false;
+        onCooldown = false;
+        isBaking = false; 
     }
 
     public void StartBaking(int type)
@@ -141,5 +158,14 @@ public class FurnaceScript : MonoBehaviour
     public void Collect()
     {
         GameObject.Find("Pegs").GetComponent<PegManager>().respawnPeg(bakingType, 4);
+    }
+
+    private void OnDestroy()
+    {
+        GameplayManager.OnDayStart -= UpdateDay;
+    }
+    private void OnDisable()
+    {
+        GameplayManager.OnDayStart -= UpdateDay;
     }
 }

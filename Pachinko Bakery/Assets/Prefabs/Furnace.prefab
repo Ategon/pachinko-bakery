@@ -6828,6 +6828,7 @@ MonoBehaviour:
   cooldownTimer: 0
   onCooldown: 0
   startButton: {fileID: 4209318747395508645}
+  choiceButton: {fileID: 7931887361285340780}
 --- !u!1 &7152240539812116666
 GameObject:
   m_ObjectHideFlags: 0

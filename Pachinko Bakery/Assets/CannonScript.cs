@@ -42,6 +42,14 @@ public class CannonScript : MonoBehaviour
     public void EnqueueBall(int id)
     {
         balls.Enqueue(id);
+        bagSize++;
+    }
+
+    public void MoneyGambit()
+    {
+        balls = new Queue<int>();
+        balls.Enqueue(3);
+        bagSize = 1;
     }
 
     public void AddBall(int id)

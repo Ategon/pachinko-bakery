@@ -13,8 +13,8 @@ public class BallScript : MonoBehaviour
         cannonScript = GameObject.Find("Cannon").GetComponent<CannonScript>();
         gameplayManager = GameObject.Find("GameplayManager").GetComponent<GameplayManager>();
         GetComponent<Rigidbody2D>().sharedMaterial.bounciness = GetComponent<Rigidbody2D>().sharedMaterial.bounciness/gameplayManager.heavyMult;
+        GameplayManager.OnDayEnd += UpdateDay;
     }
-
 
     void OnCollisionEnter2D(Collision2D collision)
     {
@@ -28,5 +28,20 @@ public class BallScript : MonoBehaviour
         {
             gameplayManager.AddMoney(0.25f);
         }
+    }
+
+    void UpdateDay()
+    {
+        cannonScript.AddBall(ballID);
+        Destroy(this.gameObject);
+    }
+
+    private void OnDestroy()
+    {
+        GameplayManager.OnDayEnd -= UpdateDay;
+    }
+    private void OnDisable()
+    {
+        GameplayManager.OnDayEnd -= UpdateDay;
     }
 }
