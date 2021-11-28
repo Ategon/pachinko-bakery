@@ -12,6 +12,8 @@ public class CustomerManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI[] textObjects;
     [SerializeField] private Sprite[] sprites;
     [SerializeField] private Image spriteRenderer;
+    [SerializeField] private float customerTimer = 20f;
+    [SerializeField] private TextMeshProUGUI customerTimerText;
 
     public void addProduct(int id, int amount = 1)
     {
@@ -22,6 +24,20 @@ public class CustomerManager : MonoBehaviour
     void Start()
     {
         nextProduct = Random.Range(1, 3);
+    }
+
+    void FixedUpdate()
+    {
+        customerTimer -= Time.deltaTime;
+        if(customerTimer <= 0)
+        {
+            //ran out of time
+            gameplayManager.AddMoney(-3);
+            nextProduct = Random.Range(1, 3);
+            spriteRenderer.sprite = sprites[nextProduct - 1];
+            customerTimer = 10f;
+        }
+        customerTimerText.text = $"{Mathf.Round(customerTimer * 10f) / 10f} sec";
     }
 
     public void useProduct(int id)
@@ -36,6 +52,7 @@ public class CustomerManager : MonoBehaviour
                 nextProduct = Random.Range(1, 3);
                 textObjects[id - 1].text = "" + productAmounts[id - 1];
                 spriteRenderer.sprite = sprites[nextProduct - 1];
+                customerTimer = 10f;
             } else
             {
                 //not enough
@@ -49,6 +66,7 @@ public class CustomerManager : MonoBehaviour
                 nextProduct = Random.Range(1, 3);
                 textObjects[id - 1].text = "" + productAmounts[id - 1];
                 spriteRenderer.sprite = sprites[nextProduct - 1];
+                customerTimer = 10f;
             }
             else
             {
