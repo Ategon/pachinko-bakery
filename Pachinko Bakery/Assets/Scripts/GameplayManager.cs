@@ -20,8 +20,14 @@ public class GameplayManager : MonoBehaviour
     [SerializeField] private GameObject pauseButton;
     [SerializeField] private GameObject dayText;
     [SerializeField] private TextMeshProUGUI dayTitle;
-    [SerializeField] private TextMeshProUGUI dayDesc;
+    [SerializeField] private TextMeshProUGUI dayDesc; 
     [SerializeField] private Image materialColor;
+    [SerializeField] private GameObject dayMenuCanvas;
+    [SerializeField] private GameObject shopCanvas;
+
+    [SerializeField] private PhysicsMaterial2D normalMat;
+    [SerializeField] private PhysicsMaterial2D heavyMat;
+    [SerializeField] private PhysicsMaterial2D bouncyMat;
 
     [Header("Variables")]
     [SerializeField] private float levelTimer;
@@ -45,6 +51,13 @@ public class GameplayManager : MonoBehaviour
 
     [Space(5)]
     [SerializeField] private string[] songNames;
+
+    [Header("ShopInfo")]
+    [SerializeField] private int[] itemPrices;
+    [SerializeField] private string[] itemDescs;
+    [SerializeField] private string[] itemTitles;
+    [SerializeField] private Color[] itemColors;
+    [SerializeField] private int[] shopIds = new int[3];
 
     public static event System.Action OnDayStart;
     public static event System.Action OnDayEnd;
@@ -97,6 +110,9 @@ public class GameplayManager : MonoBehaviour
         levelTimer = 0;
         OnMoneyGain?.Invoke();
         dayNumber++;
+        normalMat.bounciness = 0.7f;
+        heavyMat.bounciness = 0.5f;
+        bouncyMat.bounciness = 0.9f;
 
         dayTitle.text = dayTitles[dayNumber - 1];
         dayDesc.text = dayDescs[dayNumber - 1];
@@ -285,7 +301,49 @@ public class GameplayManager : MonoBehaviour
 
     private void EndDay()
     {
+        Time.timeScale = 0;
+        AudioManager.Instance.Pitch(0f, "Soundtracks", true);
+        dayMenuCanvas.SetActive(true);
+        paused = true;
+        GenerateShopTiles();
         OnDayEnd?.Invoke();
+    }
+
+    private void GenerateShopTiles()
+    {
+        for(int i = 0; i < 3; i++)
+        {
+            float rarityChance = Random.Range(0, 1f);
+            if (rarityChance <= 0.2)
+            {
+                shopIds[i] = Random.Range(5, 15);
+            }
+            else if (rarityChance <= 0.5)
+            {
+                shopIds[i] = Random.Range(1, 5);
+            }
+            else
+            {
+                shopIds[i] = 0;
+            }
+        }
+
+        //TODO add changing text + images;
+    }
+
+    public void RefreshShop()
+    {
+        AddMoney(-5f);
+        GenerateShopTiles();
+    }
+
+    public void GoNextDay()
+    {
+        Time.timeScale = 1;
+        shopCanvas.SetActive(false);
+        paused = false;
+        AudioManager.Instance.Pitch(1f, "Soundtracks", true);
+        StartDay();
     }
 
     #endregion
@@ -301,7 +359,6 @@ public class GameplayManager : MonoBehaviour
         }
 
         EndDay();
-        StartDay(); //TEMP
     }
 
     IEnumerator ShowDayTimer()

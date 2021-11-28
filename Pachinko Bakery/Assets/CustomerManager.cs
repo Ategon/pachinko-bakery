@@ -35,7 +35,7 @@ public class CustomerManager : MonoBehaviour
             gameplayManager.AddMoney(-3);
             nextProduct = Random.Range(1, 3);
             spriteRenderer.sprite = sprites[nextProduct - 1];
-            customerTimer = 10f/gameplayManager.customerTimerMult;
+            customerTimer = 10f / gameplayManager.customerTimerMult;
         }
         customerTimerText.text = $"{Mathf.Round(customerTimer * 10f) / 10f} sec";
     }
@@ -52,7 +52,7 @@ public class CustomerManager : MonoBehaviour
                 nextProduct = Random.Range(1, 3);
                 textObjects[id - 1].text = "" + productAmounts[id - 1];
                 spriteRenderer.sprite = sprites[nextProduct - 1];
-                customerTimer = 10f;
+                customerTimer = 10f / gameplayManager.customerTimerMult;
             } else
             {
                 //not enough
@@ -66,7 +66,7 @@ public class CustomerManager : MonoBehaviour
                 nextProduct = Random.Range(1, 3);
                 textObjects[id - 1].text = "" + productAmounts[id - 1];
                 spriteRenderer.sprite = sprites[nextProduct - 1];
-                customerTimer = 10f;
+                customerTimer = 10f / gameplayManager.customerTimerMult;
             }
             else
             {

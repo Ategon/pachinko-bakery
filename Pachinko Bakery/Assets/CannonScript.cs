@@ -14,6 +14,10 @@ public class CannonScript : MonoBehaviour
     [SerializeField] private TextMeshProUGUI waitText;
     [SerializeField] private GameplayManager gameplayManager;
 
+    [SerializeField] private PhysicsMaterial2D normalMat;
+    [SerializeField] private PhysicsMaterial2D heavyMat;
+    [SerializeField] private PhysicsMaterial2D bouncyMat;
+
     [Header("Variables")]
     [SerializeField] private Vector2 mousePosition;
     [SerializeField] private float cannonAngle;
@@ -117,6 +121,10 @@ public class CannonScript : MonoBehaviour
                     waitRight = true;
                     if (balls.Count > 0 && !ballOut)
                     {
+                        normalMat.bounciness = 0.7f;
+                        heavyMat.bounciness = 0.5f;
+                        bouncyMat.bounciness = 0.9f;
+
                         //create ball
                         GameObject newBall = Instantiate(ballPrefabs[balls.Dequeue()], shotArea.position, Quaternion.identity);
                         AddForceAtAngle(25, cannonAngle, newBall.GetComponent<Rigidbody2D>());
