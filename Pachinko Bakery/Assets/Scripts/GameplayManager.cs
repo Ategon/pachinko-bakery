@@ -433,12 +433,43 @@ public class GameplayManager : MonoBehaviour
         shop2Object.SetActive(true);
         shop3Object.SetActive(true);
 
+        int tempOvens = 0;
+        int tempRepair = 2;
+
         for (int i = 0; i < 3; i++)
         {
             float rarityChance = Random.Range(0, 1f);
             if (rarityChance <= 0.33)
             {
                 shopIds[i] = Random.Range(5, 15);
+                if(shopIds[i] >= 5 && shopIds[i] <= 9)
+                {
+                    if(ovenAmount+tempOvens >= 6)
+                    {
+                        shopIds[i] = 11;
+                    } else
+                    {
+                        tempOvens++;
+                    }
+                }
+                if (shopIds[i] == 14)
+                {
+                    if (cannonRepairMult - (tempRepair*0.25) <= 0.25)
+                    {
+                        shopIds[i] = 11;
+                    }
+                    else
+                    {
+                        tempRepair++;
+                    }
+                }
+                if(shopIds[i] == 10)
+                {
+                    if(money >= 500)
+                    {
+                        shopIds[i] = 11;
+                    }
+                }
             }
             else if (rarityChance <= 0.66)
             {

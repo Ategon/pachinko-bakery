@@ -53,6 +53,8 @@ public class CustomerManager : MonoBehaviour
         nextProduct = Random.Range(1, 3);
         productAmounts[0] = 0;
         productAmounts[1] = 0;
+        textObjects[0].text = "" + productAmounts[0];
+        textObjects[1].text = "" + productAmounts[1];
     }
 
     public void useProduct(int id)

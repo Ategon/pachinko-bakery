@@ -5172,6 +5172,9 @@ MonoBehaviour:
   formations:
   - {fileID: 2832911794712087138, guid: fe9b1d60e906d6a45b91e829ec3510bb, type: 3}
   - {fileID: 2832911794712087138, guid: 3b5fa4184ca09bd49984cdeac63a4dc1, type: 3}
+  - {fileID: 2832911794712087138, guid: 2f1c92b3b0581384e8c77161833c80f3, type: 3}
+  - {fileID: 2832911794712087138, guid: 936a1bcc621e9104989d45328f6cbbda, type: 3}
+  - {fileID: 2832911794712087138, guid: 27fef1308563e0a44861cb3e1eff7619, type: 3}
   formation: {fileID: 0}
 --- !u!224 &549501058 stripped
 RectTransform:
@@ -6100,7 +6103,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 286.82, y: -303.24994}
+  m_AnchoredPosition: {x: 286.82, y: -341.9}
   m_SizeDelta: {x: 360, y: 90}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &787960921
@@ -8458,7 +8461,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 286.82, y: -303.25}
+  m_AnchoredPosition: {x: 286.82, y: -341.9}
   m_SizeDelta: {x: 360, y: 90}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1050734144
@@ -10989,47 +10992,7 @@ CompositeCollider2D:
   m_GeometryType: 1
   m_GenerationType: 0
   m_EdgeRadius: 0
-  m_ColliderPaths:
-  - m_Collider: {fileID: 1254295747}
-    m_ColliderPaths:
-    - - X: 4731855
-        Y: 9223245
-      - X: -17669738
-        Y: 9223245
-      - X: -17669738
-        Y: 8395594
-      - X: 4731855
-        Y: 8395594
-  - m_Collider: {fileID: 1254295746}
-    m_ColliderPaths:
-    - - X: 4731855
-        Y: -17206174
-      - X: -17669738
-        Y: -17206174
-      - X: -17669738
-        Y: -18033826
-      - X: 4731855
-        Y: -18033826
-  - m_Collider: {fileID: 1254295745}
-    m_ColliderPaths:
-    - - X: 4800000
-        Y: 9000000
-      - X: 4000000
-        Y: 9000000
-      - X: 4000000
-        Y: -18000000
-      - X: 4800000
-        Y: -18000000
-  - m_Collider: {fileID: 1254295742}
-    m_ColliderPaths:
-    - - X: -16900000
-        Y: 9000000
-      - X: -17700000
-        Y: 9000000
-      - X: -17700000
-        Y: -18000000
-      - X: -16900000
-        Y: -18000000
+  m_ColliderPaths: []
   m_CompositePaths:
     m_Paths:
     - - {x: 0.4731562, y: -1.8033826}
@@ -12104,7 +12067,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1335047820
 Transform:
   m_ObjectHideFlags: 0

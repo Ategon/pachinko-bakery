@@ -31,6 +31,7 @@ public class FurnaceScript : MonoBehaviour
     [SerializeField] private bool onCooldown;
     [SerializeField] private GameObject startButton;
     [SerializeField] private GameObject choiceButton;
+    [SerializeField] private GameObject missingButton;
 
     void Start()
     {
@@ -62,6 +63,7 @@ public class FurnaceScript : MonoBehaviour
         clickButton.SetActive(false);
         choiceButton.SetActive(false);
         collectButton.SetActive(false);
+        missingButton.SetActive(false);
         cooldownText.text = "";
         smokeParticles.Stop();
         fireParticles.Stop();
@@ -73,11 +75,17 @@ public class FurnaceScript : MonoBehaviour
 
     public void StartBaking(int type)
     {
-        GameObject.Find("GameplayManager").GetComponent<GameplayManager>().AddMoney(-1);
-        bakingTimer = 15f;
-        bakingType = type;
-        furnaceImage.sprite = sprites[1];
-        isBaking = true;
+        if (GameObject.Find("GameplayManager").GetComponent<GameplayManager>().Money > 0)
+        {
+            GameObject.Find("GameplayManager").GetComponent<GameplayManager>().AddMoney(-1);
+            bakingTimer = 15f;
+            bakingType = type;
+            furnaceImage.sprite = sprites[1];
+            isBaking = true;
+        } else
+        {
+            missingButton.SetActive(true);
+        }
     }
 
     public void ExtinguishFire()
