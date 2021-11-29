@@ -60,6 +60,13 @@ public class GameplayManager : MonoBehaviour
     [SerializeField] private GameObject[] ovens;
     [SerializeField] private int ovenAmount = 1;
 
+    [SerializeField] private GameObject winCanvas;
+    [SerializeField] private TextMeshProUGUI winText;
+    [SerializeField] private TextMeshProUGUI winScore;
+
+    [SerializeField] private GameObject toShopButton;
+    [SerializeField] private GameObject toResultsButton;
+
     [Header("Variables")]
     [SerializeField] private float levelTimer;
     [SerializeField] private int levelLength;
@@ -196,6 +203,11 @@ public class GameplayManager : MonoBehaviour
     {
         money += amount;
         OnMoneyGain?.Invoke();
+
+        if(money < 0)
+        {
+            GoBackrupt();
+        }
     }
 
     public void Play()
@@ -237,6 +249,35 @@ public class GameplayManager : MonoBehaviour
             creditsMenu.SetActive(true);
             title.SetActive(false);
         }
+    }
+
+    public void WinScreen()
+    {
+        if (money >= 700)
+        {
+            winText.text = "You paid your rent!";
+        } else
+        {
+            winText.text = "You didn't pay your rent";
+        }
+
+        winScore.text = $"Final score: {money.ToString("0.00")}";
+        ShowWinScreen();
+    }
+
+    public void GoBackrupt()
+    {
+        winText.text = "You went backrupt!";
+        winScore.text = $"Final score: {0.ToString("0.00")}";
+        ShowWinScreen();
+    }
+
+    public void ShowWinScreen()
+    {
+        Time.timeScale = 0;
+        winCanvas.SetActive(true);
+        paused = true;
+        AudioManager.Instance.Pitch(0f, "Soundtracks");
     }
 
     public void MasterChange(float amount)
@@ -312,6 +353,15 @@ public class GameplayManager : MonoBehaviour
         Time.timeScale = 1;
         pauseCanvas.SetActive(false);
         pauseButton.SetActive(true);
+        paused = false;
+        AudioManager.Instance.Pitch(1f, "Soundtracks");
+        SceneManager.LoadScene("MainScene");
+    }
+
+    public void QuitWinScreen()
+    {
+        Time.timeScale = 1;
+        winCanvas.SetActive(false);
         paused = false;
         AudioManager.Instance.Pitch(1f, "Soundtracks");
         SceneManager.LoadScene("MainScene");
@@ -417,6 +467,13 @@ public class GameplayManager : MonoBehaviour
         moneyTallyText.text = $"Money tally: ${money.ToString("0.00")}";
         overstockText.text = $"Overstock: ${(customerManager.ProductAmounts[0] + customerManager.ProductAmounts[1]).ToString("0.00")}";
         AddMoney(customerManager.ProductAmounts[0] + customerManager.ProductAmounts[1]);
+
+        //show a different button if the last day
+        if(dayNumber == 5)
+        {
+            toShopButton.SetActive(false);
+            toResultsButton.SetActive(true);
+        }
 
         Time.timeScale = 0;
         AudioManager.Instance.Pitch(0f, "Soundtracks", true);
