@@ -17151,7 +17151,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Pegs dissapear and give you bread 5 seconds after theyve been hit.
+  m_text: 'Pegs disappear and give you bread 5 seconds after theyve been hit.
 
     Round
     bun = circular pegs.
