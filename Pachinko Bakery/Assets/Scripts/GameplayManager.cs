@@ -264,14 +264,14 @@ public class GameplayManager : MonoBehaviour
             winText.text = "You didn't pay your rent";
         }
 
-        winScore.text = $"Final score: {money.ToString("0.00")}";
+        winScore.text = $"Final score: ${money.ToString("0.00")}";
         ShowWinScreen();
     }
 
     public void GoBackrupt()
     {
-        winText.text = "You went backrupt!";
-        winScore.text = $"Final score: {0.ToString("0.00")}";
+        winText.text = "You went bankrupt!";
+        winScore.text = $"Final score: ${0.ToString("0.00")}";
         ShowWinScreen();
     }
 
@@ -364,7 +364,6 @@ public class GameplayManager : MonoBehaviour
     public void QuitWinScreen()
     {
         Time.timeScale = 1;
-        winCanvas.SetActive(false);
         paused = false;
         AudioManager.Instance.Pitch(1f, "Soundtracks");
         SceneManager.LoadScene("MainScene");
