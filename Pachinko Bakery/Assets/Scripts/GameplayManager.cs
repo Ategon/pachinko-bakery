@@ -67,6 +67,8 @@ public class GameplayManager : MonoBehaviour
     [SerializeField] private GameObject toShopButton;
     [SerializeField] private GameObject toResultsButton;
 
+    [SerializeField] private GameObject tutorialCanvas;
+
     [Header("Variables")]
     [SerializeField] private float levelTimer;
     [SerializeField] private int levelLength;
@@ -147,6 +149,7 @@ public class GameplayManager : MonoBehaviour
 
     public void StartDay()
     {
+        if (dayNumber == 0) ShowInstructions();
         levelTimer = 0;
         OnMoneyGain?.Invoke();
         dayNumber++;
@@ -335,7 +338,7 @@ public class GameplayManager : MonoBehaviour
         Time.timeScale = 0;
         AudioManager.Instance.Pitch(0f, "Soundtracks", true);
         pauseCanvas.SetActive(true);
-        pauseButton.SetActive(false);
+        //pauseButton.SetActive(false);
         paused = true;
     }
 
@@ -343,7 +346,7 @@ public class GameplayManager : MonoBehaviour
     {
         Time.timeScale = 1;
         pauseCanvas.SetActive(false);
-        pauseButton.SetActive(true);
+        //pauseButton.SetActive(true);
         paused = false;
         AudioManager.Instance.Pitch(1f, "Soundtracks", true);
     }
@@ -365,6 +368,22 @@ public class GameplayManager : MonoBehaviour
         paused = false;
         AudioManager.Instance.Pitch(1f, "Soundtracks");
         SceneManager.LoadScene("MainScene");
+    }
+
+    public void ShowInstructions()
+    {
+        Time.timeScale = 0;
+        tutorialCanvas.SetActive(true);
+        paused = true;
+        AudioManager.Instance.Pitch(0f, "Soundtracks", true);
+    }
+
+    public void QuitInstructions()
+    {
+        Time.timeScale = 1;
+        tutorialCanvas.SetActive(false);
+        paused = false;
+        AudioManager.Instance.Pitch(1f, "Soundtracks", true);
     }
 
     public void Quit()
