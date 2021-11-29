@@ -3,7 +3,10 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Ball
+  - EndZone
+  - Peg
   layers:
   - Default
   - TransparentFX
@@ -49,4 +52,7 @@ TagManager:
     locked: 0
   - name: Objects
     uniqueID: 1155178887
+    locked: 0
+  - name: UI
+    uniqueID: 4043109017
     locked: 0

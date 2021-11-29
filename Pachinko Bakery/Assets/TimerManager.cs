@@ -32,7 +32,8 @@ public class TimerManager : MonoBehaviour
         }
 
         timerText.text = $"{hour}:{minString} {(pm ? "pm" : "am")}";
-        if(gameplayManager.LevelTimer > gameplayManager.LevelLength/2)
-        backgroundNight.color = new Color(1f, 1f, 1f, (gameplayManager.LevelTimer - gameplayManager.LevelLength / 2) * 2 / gameplayManager.LevelLength);
+        if (gameplayManager.LevelTimer > gameplayManager.LevelLength / 2) backgroundNight.color = new Color(1f, 1f, 1f, (gameplayManager.LevelTimer - gameplayManager.LevelLength / 2) * 2 / gameplayManager.LevelLength);
+        else backgroundNight.color = new Color(1f, 1f, 1f, 0f);
+
     }
 }

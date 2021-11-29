@@ -15,6 +15,12 @@ public class InputHandler : MonoBehaviour
         private set {; }
     }
 
+    public bool RightClickInput
+    {
+        get { return rightClickInput; }
+        private set {; }
+    }
+
 
     public void OnAim(InputAction.CallbackContext context)
     {
